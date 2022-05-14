@@ -98,7 +98,7 @@ def main():
                              predict_classes,
                              predict_scores,
                              category_index=category_index,
-                             box_thresh=0,
+                             box_thresh=0.5,
                              line_thickness=1,
                              font='arial.ttf',
                              font_size=20)
