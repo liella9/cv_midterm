@@ -1,0 +1,34 @@
+\contentsline {section}{\numberline {1}在CIFAR-100数据集上训练CNN}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}数据集介绍与划分}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}baseline模型}{4}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}模型基本结构}{4}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}模型超参数调整}{6}{subsubsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.3}数据增强}{6}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}随机裁剪和水平翻转}{6}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}Cut out}{7}{subsubsection.1.3.2}%
+\contentsline {subsubsection}{\numberline {1.3.3}Cut mix}{9}{subsubsection.1.3.3}%
+\contentsline {subsubsection}{\numberline {1.3.4}Mix up}{11}{subsubsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.4}小结}{12}{subsection.1.4}%
+\contentsline {section}{\numberline {2}在VOC数据集上训练Faster R-CNN和YOLO V3}{13}{section.2}%
+\contentsline {subsection}{\numberline {2.1}数据集介绍与划分}{13}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}数据集总体概况}{13}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}数据集划分}{13}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}数据集可视化}{15}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}读取VOC数据集}{15}{subsubsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.2}Faster R-CNN模型}{16}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}基本结构}{16}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}特征金字塔网络（FPN）}{17}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}候选检测框生成网络（RPN）}{18}{subsubsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.4}模型训练}{19}{subsubsection.2.2.4}%
+\contentsline {subsubsection}{\numberline {2.2.5}模型评价}{20}{subsubsection.2.2.5}%
+\contentsline {subsubsection}{\numberline {2.2.6}模型可视化}{20}{subsubsection.2.2.6}%
+\contentsline {subsection}{\numberline {2.3}YOLO V3模型}{22}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}YOLO V3基本结构}{22}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}YOLO V3的anchor box}{23}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}YOLO V3损失函数}{24}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}YOLO V3 SPP}{25}{subsubsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.5}模型训练}{25}{subsubsection.2.3.5}%
+\contentsline {subsubsection}{\numberline {2.3.6}模型评价}{26}{subsubsection.2.3.6}%
+\contentsline {subsubsection}{\numberline {2.3.7}模型可视化}{27}{subsubsection.2.3.7}%
+\contentsline {subsection}{\numberline {2.4}小结}{28}{subsection.2.4}%
+\contentsline {section}{\numberline {3}代码链接和模型下载地址}{28}{section.3}%

@@ -1,0 +1,59 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <Languages>
+        <language minSize="455" name="Python" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="PyChainedComparisonsInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoreConstantInTheMiddle" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E302" />
+          <option value="E722" />
+          <option value="W292" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N801" />
+          <option value="N802" />
+          <option value="N806" />
+          <option value="N803" />
+          <option value="N812" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="cv2.imread" />
+          <option value="cv2.imshow" />
+          <option value="cv2.threshold" />
+          <option value="cv2.THRESH_OSTU" />
+          <option value="cv2.imwrite" />
+          <option value="cv2.waitKey" />
+          <option value="cv2.destroyAllWindows" />
+          <option value="torch.utils.data" />
+          <option value="bool.*" />
+          <option value="cv2.dft" />
+          <option value="cv2.DFT_COMPLEX_OUTPUT" />
+          <option value="cv2.magnitude" />
+          <option value="cv2.idft" />
+          <option value="test.matplotlib" />
+          <option value="test.torchtoolbox" />
+          <option value="torch.utils" />
+          <option value="torch.backends.cudnn" />
+          <option value="torch.cuda.manual_seed" />
+          <option value="torch.cuda.manual_seed_all" />
+          <option value="torch.backends" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
