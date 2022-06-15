@@ -1,53 +1,156 @@
-# DATA130051.01 Midterm Project - Guide
+Orc-DeBERTa, Orc-MAE and others: Unsupervised Few-Shot Oracle Character Recognition
+===================================================================================
 
-本次作业主要实现了：
+![](Graph/whole.png)
 
-- 在CIFAR-100数据集上训练CNN
-- 在VOC数据集上训练Faster R-CNN和YOLO V3
+Requirement
+-----------
 
-各个模型的下载链接在report文件夹的报告中。
+`argparse`: to run the project by a given mode with given hyper-parameters from
+the command line;
 
-## 在CIFAR-100数据集上训练CNN
+`warnings`: to filter warnings;
 
-### 训练步骤
-1. 安装程序运行对应的包
-2. 下载CIFAR-100数据集，在Part 1中新建data文件夹并放入数据集
-3. 在Part 1文件夹的train.py文件中设置好训练时的参数
-4. 运行train.py，进行训练
-5. 最终得到的模型以及loss和accuracy曲线将保存于Part 1文件夹中
+`os`: to implement file operations;
 
-### 测试步骤
-1. 将下载的模型放入Part 1文件夹
-2. 在train.py文件中，设置学习率为0
-3. 在train.py文件中，设置模型对应的.pth文件名
-4. 运行train.py，进行测试
+`time`: to record the log and result named by current time;
 
+`logging`: to record the log without including the progress bar;
 
-## 在VOC数据集上训练Faster R-CNN和YOLO V3
+`tqdm`: to show the progress bar when loading data;
 
-### Faster R-CNN
+`numpy`: to get random numbers and implement mathematical calculations;
 
-#### 训练步骤
-1. 提前准备好数据集
-2. 提前下载好对应预训练模型权重(要重命名)backbone: https://download.pytorch.org/models/fasterrcnn_resnet50_fpn_coco-258fb6c6.pth
-5. 使用```train_resnet50_fpn.py```训练脚本
-6. 最终得到的模型以及loss和mAP曲线保存
+`torch`: to manage the use of GPU and construct the network;
 
-#### 测试步骤
-1. 使用predict.py
-2. train_weights设置为训练好的模型,original_img为待测试的图片
-3. 得到带得分和类别的box
+`torchvision`: to load the pre-trained ResNet-18;
 
+`transformers`: to construct the DeBERTa model;
 
-### YOLO V3
+`matplotlib`: to convert the sketch data into image data.
 
-#### 训练步骤
-1. 将VOC标注数据转为YOLO标注数据，使用```trans_voc2yolo.py```脚本进行转换
-2. 根据摆放好的数据集信息生成一系列相关准备文件
-3. 预训练权重下载地址```yolov3-spp-ultralytics-512.pt```: 链接: https://pan.baidu.com/s/1k5yeTZZNv8Xqf0uBXnUK-g  密码: e3k1
-4. 直接使用train.py训练脚本
+Code Files
+----------
 
-#### 测试步骤
-1. predict_test.py，使用训练好的权重进行预测测试
-2. weights设置为训练好的模型,img_path为待测试的图片
-3. 得到带得分和类别的box
+`rename.py`: rename the original Chinese file names to numbers, since some
+operating systems may not support Chinese;
+
+`draw.py`: convert the large-scale unlabeled sketch data into image data, since
+paired sketch and image data are need in DeBERTa, while the original dataset
+doesn’t provide such form of data;
+
+`load.py`: define the `OracleDataset` class and the `data_loader_builder`
+function to load different forms of data;
+
+`augment.py`: define three functions to implement CutOut, MixUp and CutMix;
+
+`deberta.py`: define the structure of Orc-DeBERTa;
+
+`utils.py`: define the training and pre-training processes;
+
+`main.py`: collect the command from the command line, load the data using the
+`data_loader_builder` function defined in `load.py`, instantiate the model and
+implement the training and pre-training processes defined in `utils.py`.
+
+Data Pre-processing
+-------------------
+
+All the data should be stored in the `Data` directory in the root directory of
+the project, just like the `Code` directory.
+
+The structure of the raw [Oracle-FS​](https://github.com/wenhui-han/Oracle-50K) dataset file is as follows:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--oracle_source
+  --oracle_source_img
+    --bun_xxt_hard
+    --gbk_bronze_lst_seal
+    --oracle_54081
+    --other_font
+  --oracle_source_seq
+--oracle_fs
+  --img
+    --oracle_200_1_shot
+      --test
+      --train
+    --oracle_200_3_shot
+      --test
+      --train
+    --oracle_200_5_shot
+      --test
+      --train
+  --seq
+    --oracle_200_1_shot
+    --oracle_200_3_shot
+    --oracle_200_5_shot
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To better manage the files, we reconstruct them as follows:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--img
+  --oracle_source_img
+    --bun_xxt_hard
+    --gbk_bronze_lst_seal
+    --oracle_54081
+    --other_font
+  --oracle_200_1_shot
+    --test
+    --train
+  --oracle_200_3_shot
+    --test
+    --train
+  --oracle_200_5_shot
+    --test
+    --train
+--seq
+  --oracle_source_seq  
+  --oracle_200_1_shot
+  --oracle_200_3_shot
+  --oracle_200_5_shot
+--draw
+  --train
+  --test
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Besides reconstructing the `Data/img` and `Data/seq` files by oneself, one can run
+`rename.py` to rename the the original Chinese file names to numbers, and run
+`draw.py` to convert the large-scale unlabeled sketch data into image data.
+
+Training
+--------
+
+One can run the following command in the command line to train the models:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+python main.py --mode train --form baseline --shot 1 --lr 0.0001
+python main.py --mode train --form tradition --shot 1 --lr 0.0001
+python main.py --mode train --form cutout --shot 1 --lr 0.0001
+python main.py --mode train --form mixup --shot 1 --lr 0.0001
+python main.py --mode train --form cutmix --shot 1 --lr 0.0001
+python main.py --mode pretrain --form img --lr 0.001
+python main.py --mode train --form img --shot 1 --lr 0.0001
+python main.py --mode pretrain --form seq --lr 0.001
+python main.py --mode train --form seq --shot 1 --lr 0.0001
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+More specifically, the following parameters can be set:
+
+`--num_epoch`: the number of epochs. Since the so far best model will always be
+saved, the number of epochs seems to be not so important. Default: `200`.
+
+`--batch_size`: the batch size. Default: `8`.
+
+`--num_workers`: the number of sub-processes to use for data loading. Default:
+`4`.
+
+`--mode`: the mode, can be `train` or `pretrain`. Default: `Train`.
+
+`--form`: the data augmentation strategy, which can be `baseline`, `tradition`,
+`cutout`, `mixup`, `cutmix`, `img` and `seq`, where `baseline` means no data
+augmentation strategy, `tradition` means random padding, cropping and horizontal
+flipping, `img` means Orc-MAE, and `seq` means Orc-DeBERTa. Default: `img`.
+
+`--shot`: the few shot setting, which can be `1`, `3` or `5`. Default: `1`.
+
+`--lr`: the learning rate. Default: `0.0001`.
